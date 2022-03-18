@@ -2,7 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 13: Tab characters are not allowed in Ren'Py scripts.
+File "game/script.rpy", line 55: expected 'image_name_component' not found.
+    scene "backgrounds/medieval_path_day"
+          ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Sun Mar 13 07:19:50 2022
+Wed Mar 16 08:26:03 2022
