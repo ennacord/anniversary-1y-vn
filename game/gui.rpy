@@ -382,10 +382,10 @@ define gui.nvl_name_width = 225
 define gui.nvl_name_xalign = 1.0
 
 ## The position, width, and alignment of the dialogue text.
-define gui.nvl_text_xpos = 675
-define gui.nvl_text_ypos = 12
-define gui.nvl_text_width = 885
-define gui.nvl_text_xalign = 0.0
+define gui.nvl_text_xpos = 960
+define gui.nvl_text_ypos = 120
+define gui.nvl_text_width = 1520
+define gui.nvl_text_xalign = 0.5
 
 ## The position, width, and alignment of nvl_thought text (the text said by the
 ## nvl_narrator character.)
@@ -410,20 +410,17 @@ define gui.language = "unicode"
 ################################################################################
 ## Mobile devices
 ################################################################################
-
 init python:
 
     ## This increases the size of the quick buttons to make them easier to touch
     ## on tablets and phones.
-    @gui.variant
-    def touch():
+    if renpy.variant("touch"):
 
         gui.quick_button_borders = Borders(60, 21, 60, 0)
 
     ## This changes the size and spacing of various GUI elements to ensure they
     ## are easily visible on phones.
-    @gui.variant
-    def small():
+    if renpy.variant("small"):
 
         ## Font sizes.
         gui.text_size = 45
