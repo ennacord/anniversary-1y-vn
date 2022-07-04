@@ -38,12 +38,26 @@ init python:
             and whether they are speaking.
         2. we make the manipulation between active/inactive and
             speaking/non-speaking automatic with respect to the
-            script/scenario. That is, updates to this global state,
-            and swapping displayables based on this global state is
-            handled automatically without requiring explicit statements
-            to change displayables in the script.
+            script/scenario. That is, updates to (active/inactive,
+            speaking/non-speaking) state is handled automatically
+            without requiring explicit statements to change displayables
+            in the script, and once we write declarative displayables
+            to display differently based on this state, we are able to
+            swap these displayables in and out based on this state
+            without requiring explicit statements to swap displayables
+            in the script.
         """
         def character_atl_active_inactive_factory(character_objects, tagg=None):
+            """
+            This factory returns utility functions that can be used to
+            pause ATL animations for a particular character. Afaict,
+            there is no more declarative way to do what is intended
+            (to wit, to trigger animations on a displayable when they
+            change inactive/active; speaking/non-speaking) than by
+            pausing, without even more heavy-handed custom definitions.
+
+            TODO: example usage.
+            """
             def pause_while_active(trans, st, at):
                 if character_say_state["active"] in character_objects:
                     return 0.2
