@@ -74,7 +74,8 @@ init python:
                 elif event == "show_done":
                     pass
                 elif event == "slow_done":
-                    global_speaking_characters.discard(self.id)
+                    pass
+                    #global_speaking_characters.discard(self.id)
                 elif event == "end":
                     global_speaking_characters.discard(self.id)
                     global_active_characters.discard(self.id)
