@@ -2,19 +2,16 @@ init python:
     global_active_characters = set()
     global_speaking_characters = set()
 
-    class WhenSpeaking:
-        def __init__(self, char_id: str, 
+    def WhenSpeaking(char_id: str, 
                      speaking_sprite: str, speaking_refresh: float, 
                      nonspeaking_sprite: str, nonspeaking_refresh: float):
-            self.char_id = char_id
-            self.speaking = speaking_sprite, speaking_refresh
-            self.nonspeaking = nonspeaking_sprite, nonspeaking_refresh
-
-        def __call__(self, st, at):
-            if self.char_id in global_speaking_characters and renpy.music.is_playing(channel='voice'):
-                return self.speaking
+        def callback(st, at):
+            if char_id in global_speaking_characters and renpy.music.is_playing(channel='voice'):
+                return speaking_sprite, speaking_refresh
             else:
-                return self.nonspeaking
+                return nonspeaking_sprite, nonspeaking_refresh
+
+        return DynamicDisplayable(callback)
 
 
     class CharacterWrapper:
