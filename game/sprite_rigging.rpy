@@ -17,11 +17,9 @@ layeredimage enna:
 
     group mouth auto:
         attribute smile1 default:
-            WhenEnnaSpeaking("enna_mouth_talking", 0.05, 
-                             "sprites/Enna1/Enna_Mouth_Open.png", 1)
+            LipSynced("enna", "sprites/Enna1/Enna_Speech_{}.png", "sprites/Enna1/Enna_Mouth_Open.png")
         attribute smile2:
-            WhenEnnaSpeaking("enna_mouth_talking", 0.05, 
-                             "sprites/Enna1/Enna_Mouth_Closed.png", 1)
+            LipSynced("enna", "sprites/Enna1/Enna_Speech_{}.png", "sprites/Enna1/Enna_Mouth_Closed.png")
 
 image enna_eyes_blinking:
     "sprites/Enna1/Enna_Eyes_Open.png"

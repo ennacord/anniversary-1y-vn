@@ -1,9 +1,9 @@
 label initial_demo:
     scene urbancity
-    show enna_r blinking at center
+    show enna_r blinking smile2 at center
     with dissolve
     
-    voice "voice/demo/0001-en.ogg"
+    $ voice_lipsynced("voice/demo/0001-en.ogg", "enna")
     en "at the tail end of Millie's fight with Enna and friends. As Calamity Millie
     casts her world-ending spell, it seems as if the room had split in two.
     Millie escapes from her half, cackling as she takes flight,

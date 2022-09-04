@@ -1,6 +1,23 @@
 init python:
     global_active_characters = set()
     global_speaking_characters = set()
+    current_sync_info = None
+    lip_sync_timing_info = {}
+    lip_sync_info = {}
+
+    class TimingInfo:
+        def __init__(self):
+            self.started = False
+            self.start = -1
+            self.next_index = 0
+
+    def voice_lipsynced(voice_file: str, tag: str=None):
+        global current_sync_info
+        voice_id = voice_file.split('/', 1)[1].split('.')[0]
+        current_sync_info = lip_sync_info[voice_id]
+        print("set_sync_info", current_sync_info)
+        lip_sync_timer = -1
+        voice(voice_file, tag)
 
     def WhenSpeaking(char_id: str, 
                      speaking_sprite: str, speaking_refresh: float, 
@@ -10,6 +27,43 @@ init python:
                 return speaking_sprite, speaking_refresh
             else:
                 return nonspeaking_sprite, nonspeaking_refresh
+
+        return DynamicDisplayable(callback)
+    
+    def LipSynced(char_id: str, speaking_base: str, nonspeaking_sprite: str):
+        print(speaking_base)
+        def callback(st, at):
+            if char_id not in lip_sync_timing_info:
+                lip_sync_timing_info[char_id] = TimingInfo()
+
+            if not (char_id in global_speaking_characters and renpy.music.is_playing(channel='voice') and current_sync_info):
+                lip_sync_timing_info[char_id].started = False
+                return nonspeaking_sprite, 0.1
+
+            timing_info = lip_sync_timing_info[char_id]
+            if not timing_info.started:
+                timing_info.started = True
+                timing_info.start = st
+                timing_info.next_index = 0
+            
+            if timing_info.next_index < len(current_sync_info):
+                next_pos, next_time = current_sync_info[timing_info.next_index]
+            else:
+                next_pos, next_time = current_sync_info[-1][0], st + 100
+
+            next_pos = speaking_base.format(next_pos)
+
+            if timing_info.next_index == 0:
+                prev_pos = nonspeaking_sprite
+            else:
+                prev_pos = speaking_base.format(current_sync_info[timing_info.next_index - 1][0])
+
+            curr_time = st - lip_sync_timing_info[char_id].start
+            if curr_time >= next_time:
+                timing_info.next_index += 1
+                return next_pos, 0.01
+            else:
+                return prev_pos, 0.01
 
         return DynamicDisplayable(callback)
 
