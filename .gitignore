@@ -127,3 +127,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# ren'py files
+errors.txt
+traceback.txt
+log.txt
+game/saves
+game/cache
+*.rpyc
+*.rpymc
+*.bak
+
+# hanss314 testing files
+sync-tooling
